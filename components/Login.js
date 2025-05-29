@@ -8,7 +8,7 @@ export default async function Login() {
         Sign In with Azure AD
       </SignIn>
       <SignIn provider="google" className="mb-4">
-        Sign In with Google
+        Sign In with Google hello
       </SignIn>
       <SignOut className="mb-4">Sign Out</SignOut>
     </div>
