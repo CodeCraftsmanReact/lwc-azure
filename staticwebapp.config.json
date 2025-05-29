@@ -24,7 +24,7 @@
       },
       "google": {
         "registration": {
-          "clientId": "GOOGLE_CLIENT_ID",
+          "clientId": "806324843809-dvva5dbnfm6icnqbd7li3cimf5edoqpe.apps.googleusercontent.com",
           "clientSecretSettingName": "GOOGLE_CLIENT_SECRET"
         }
       }
