@@ -1,15 +1,24 @@
 import { CosmosClient } from "@azure/cosmos";
 
-const endpoint = process.env.COSMOS_DB_ENDPOINT;
-const key = process.env.COSMOS_DB_KEY;
 const databaseId = "UserSignups";
 const containerId = "Users";
 
-const client = new CosmosClient({ endpoint, key });
-const container = client.database(databaseId).container(containerId);
+function getContainer() {
+  const endpoint = process.env.COSMOS_DB_ENDPOINT;
+  const key = process.env.COSMOS_DB_KEY;
 
+  if (!endpoint || !key) {
+    throw new Error(
+      "Missing Cosmos DB connection info in environment variables"
+    );
+  }
+
+  const client = new CosmosClient({ endpoint, key });
+  return client.database(databaseId).container(containerId);
+}
 export async function POST(req, res) {
   try {
+    const container = getContainer();
     const body = await req.json();
     const { id, email, name, provider } = body;
     if (!id || !email || !name || !provider) {
