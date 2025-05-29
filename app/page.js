@@ -39,7 +39,7 @@ export default function Home() {
       <button onClick={() => signIn("google")} className="mb-4">
         Sign In with Google
       </button>
-      <button onClick={() => signIn("azure-ad-b2c")} className="mb-4">
+      <button onClick={() => signIn("azure-ad")} className="mb-4">
         Sign in with Azure
       </button>
       <button onClick={() => signOut()} className="mb-4">
