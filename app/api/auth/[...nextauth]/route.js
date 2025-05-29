@@ -17,7 +17,7 @@ const handler = NextAuth({
   callbacks: {
     async signIn({ user, account }) {
       try {
-        await fetch("http://localhost:3000/api/registerUser", {
+        await fetch(`${process.env.VERCEL_URL}api/registerUser`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
