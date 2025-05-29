@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@auth/unstorage-adapter": "^2.9.1",
+    "@azure/cosmos": "^4.4.1",
     "next": "15.3.2",
     "next-auth": "^4.24.11",
     "react": "^19.0.0",

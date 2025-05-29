@@ -14,6 +14,29 @@ const handler = NextAuth({
       tenantId: process.env.AZURE_AD_TENANT_ID,
     }),
   ],
+  callbacks: {
+    async signIn({ user, account }) {
+      const baseUrl = "http://localhost:3000"; // Must be set in .env
+      try {
+        await fetch(`${baseUrl}/api/registerUser`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            provider: account.provider,
+          }),
+        });
+      } catch (error) {
+        console.error("Failed to register user:", error);
+      }
+
+      return true;
+    },
+  },
   secret: process.env.NEXTAUTH_SECRET,
 });
 
