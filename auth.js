@@ -30,12 +30,27 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (pathname === "/middleware-example") return !!auth;
       return true;
     },
-    jwt({ token, trigger, session, account }) {
+    async jwt({ token, trigger, session, user }) {
       if (trigger === "update") token.name = session.user.name;
+      if (user?.email) {
+        const role = await fetch(
+          `${process.env.VERCEL_URL}/api/getRolesForUsers`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token.accessToken}`,
+            },
+            body: JSON.stringify({ claims: { email: user.email } }),
+          }
+        );
+        token.role = role ?? "anonymous";
+      }
       return token;
     },
     async session({ session, token }) {
       if (token?.accessToken) session.accessToken = token.accessToken;
+      session.user.role = token?.role || "anonymous";
       return session;
     },
   },
