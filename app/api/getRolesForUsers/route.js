@@ -32,7 +32,7 @@ export async function POST(request) {
     const { resources } = await container.items.query(querySpec).fetchAll();
     const roles = resources.length > 0 ? resources[0].roles : ["anonymous"];
 
-    return NextResponse.json(roles, { status: 200 });
+    return NextResponse.json({ roles: roles }, { status: 200 });
   } catch (error) {
     console.error("Error fetching user roles:", error);
     return NextResponse.json(
