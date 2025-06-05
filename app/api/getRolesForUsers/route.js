@@ -6,20 +6,21 @@ const client = new CosmosClient({
   key: process.env.COSMOS_DB_KEY,
 });
 
-const DATABASE_ID = "azure-logging";
+const DATABASE_ID = "UserSignups";
 const CONTAINER_ID = "UserRoles";
 
 export async function POST(request) {
   try {
     const body = await request.json();
     const { claims } = body;
+    console.log("Received claims:", claims, !Array.isArray(claims) || !claims);
 
-    if (!claims || !Array.isArray(claims)) {
-      return NextResponse.json(
-        { message: "Invalid claims format" },
-        { status: 400 }
-      );
-    }
+    // if (!claims || !Array.isArray(claims)) {
+    //   return NextResponse.json(
+    //     { message: "Invalid claims format" },
+    //     { status: 400 }
+    //   );
+    // }
 
     const email = claims.email;
     const database = client.database(DATABASE_ID);
