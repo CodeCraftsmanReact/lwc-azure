@@ -1,15 +1,14 @@
 import { NextResponse } from "next/server";
 import { CosmosClient } from "@azure/cosmos";
 
-const client = new CosmosClient({
-  endpoint: process.env.COSMOS_DB_ENDPOINT,
-  key: process.env.COSMOS_DB_KEY,
-});
-
 const DATABASE_ID = "UserSignups";
 const CONTAINER_ID = "UserRoles";
 
 export async function POST(request) {
+  const client = new CosmosClient({
+    endpoint: process.env.COSMOS_DB_ENDPOINT,
+    key: process.env.COSMOS_DB_KEY,
+  });
   try {
     const body = await request.json();
     const { claims } = body;
